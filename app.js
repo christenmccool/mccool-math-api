@@ -4,20 +4,17 @@
 
 const express = require("express");
 const cors = require("cors");
+const path = require("path")
 
 const { NotFoundError } = require("./expressError");
 
 const { authenticateJWT } = require("./middleware/auth");
 const authRoutes = require("./routes/auth");
 const skillsRoutes = require("./routes/skills");
-const viewRoutes = require("./routes/views");
-
 
 const morgan = require("morgan");
 
 const app = express();
-
-app.use(express.static(`static`));
 
 app.use(cors());
 app.use(express.json());
@@ -27,7 +24,6 @@ app.use(authenticateJWT);
 
 app.use("/auth", authRoutes);
 app.use("/skills", skillsRoutes);
-app.use(viewRoutes);
 
 /** Handle 404 errors */
 app.use(function (req, res, next) {
